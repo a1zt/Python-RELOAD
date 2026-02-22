@@ -1,6 +1,6 @@
-import sweetie.evaware.api.system.configs.ThemeManager;
-import sweetie.evaware.api.utils.color.ColorUtil;
-import sweetie.evaware.client.ui.theme.Theme;
+import python.reload.api.system.configs.ThemeManager;
+import python.reload.api.utils.color.ColorUtil;
+import python.reload.client.ui.theme.Theme;
 
 import java.awt.*;
 

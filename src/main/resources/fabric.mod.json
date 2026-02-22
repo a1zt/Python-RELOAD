@@ -17,7 +17,7 @@
 	"environment": "client",
 	"entrypoints": {
 		"client": [
-			"sweetie.evaware.EvaWare"
+          "python.reload.EvaWare"
 		]
 	},
 	"mixins": [
