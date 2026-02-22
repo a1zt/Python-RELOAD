@@ -29,7 +29,7 @@ public class DiscordHook implements QuickImports {
             System.out.println("RPC Errored: " + error);
         });
 
-        RPCHandler.startup("1378057680316268685", false);
+        RPCHandler.startup("1475161710259077120", false);
     }
 
     public void stopRPC() {
