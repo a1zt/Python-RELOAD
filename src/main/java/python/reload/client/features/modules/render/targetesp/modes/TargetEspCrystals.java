@@ -19,7 +19,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
+//crystal mode
 public class TargetEspCrystals extends TargetEspMode {
 
     private final List<CrystalData> crystals = new ArrayList<>();
