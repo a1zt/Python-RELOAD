@@ -93,6 +93,8 @@ public class ModuleManager {
                 TrailsModule.getInstance(),
                 TargetEspModule.getInstance(),
                 SpiderModule.getInstance(),
+                CrystalAuraModule.getInstance(),
+                InvokerModule.getInstance(),
                 FlightModule.getInstance()
         );
 

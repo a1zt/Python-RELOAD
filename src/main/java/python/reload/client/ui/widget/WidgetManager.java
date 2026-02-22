@@ -23,6 +23,8 @@ public class WidgetManager {
                 new PotionsWidget(),
                 new StaffsWidget(),
                 new CooldownsWidget(),
+                new BossBarWidget(),
+
 
                 new ArmorWidget(),
 

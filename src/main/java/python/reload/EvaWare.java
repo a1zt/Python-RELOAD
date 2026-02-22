@@ -21,7 +21,10 @@ import python.reload.client.ui.theme.ThemeEditor;
 import python.reload.client.ui.widget.WidgetManager;
 
 public class EvaWare implements ClientModInitializer {
-	@Getter private static EvaWare instance = new EvaWare();
+    @Getter
+	 private static EvaWare instance = new EvaWare();
+    @Getter
+    private static String version="v10";
 
     @Override
 	public void onInitializeClient() {
