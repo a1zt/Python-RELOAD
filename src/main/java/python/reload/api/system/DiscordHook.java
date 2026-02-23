@@ -19,10 +19,10 @@ public class DiscordHook implements QuickImports {
                     .largeImageText("the best bypa$$")
                     .smallImageKey("https://media1.tenor.com/m/PLIr_VkF6ywAAAAd/ghostedvpn-hacker-cat.gif")
                     .smallImageText("$elfcode$")
-                    
-                    .button("Bio","https://en.wikipedia.org/wiki/Vibe_coding")
-                    .startTimestamp(0)
-                    .endTimestamp(0)
+                    .button1("Yunera?","https://a1zt.github.io/YuneraInfo/")
+                    .button2("Bio","https://en.wikipedia.org/wiki/Vibe_coding")
+                    .startTimestamp(1)
+                    .endTimestamp(1)
                     .build();
             RPCHandler.updatePresence(presence);
         });
