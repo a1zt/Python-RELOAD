@@ -14,10 +14,16 @@ public class DiscordHook implements QuickImports {
         RPCHandler.setOnReady(user -> {
             RichPresence presence = RichPresence.builder()
                     .details("Version: " + ClientInfo.VERSION)
-                    .largeImageKey("ava")
-                    .largeImageText(user.getUsername())
+                    .details("user:dev")
+                    .largeImageKey("https://media1.tenor.com/m/mXOYUoT4of4AAAAC/nextrix-extorted.gif")
+                    .largeImageText("the best bypa$$")
+                    .smallImageKey("https://media1.tenor.com/m/PLIr_VkF6ywAAAAd/ghostedvpn-hacker-cat.gif")
+                    .smallImageText("$elfcode$")
+                    
+                    .button("Bio","https://en.wikipedia.org/wiki/Vibe_coding")
+                    .startTimestamp(0)
+                    .endTimestamp(0)
                     .build();
-
             RPCHandler.updatePresence(presence);
         });
 
