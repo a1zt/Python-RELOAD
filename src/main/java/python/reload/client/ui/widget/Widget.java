@@ -2,6 +2,7 @@ package python.reload.client.ui.widget;
 
 import lombok.Getter;
 import lombok.Setter;
+import net.minecraft.client.util.math.MatrixStack;
 import python.reload.api.event.events.render.Render2DEvent;
 import python.reload.api.system.draggable.Draggable;
 import python.reload.api.system.draggable.DraggableManager;
@@ -34,6 +35,9 @@ public abstract class Widget implements QuickImports, IRenderer {
     public void render(Render2DEvent.Render2DEventData event) {
         render(event.matrixStack());
     }
+
+    // Добавляем абстрактный метод
+    public abstract void render(MatrixStack matrixStack);
 
     public float scaled(float value) {
         return RenderService.getInstance().scaled(value);

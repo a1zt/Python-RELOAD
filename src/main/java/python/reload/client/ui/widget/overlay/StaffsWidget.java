@@ -28,6 +28,11 @@ public class StaffsWidget extends Widget {
     private final FrameLimiter frameLimiter = new FrameLimiter(false);
     private List<Staff> cacheStaffs = new ArrayList<>();
     private AnimationUtil animation = new AnimationUtil();
+    private AnimationUtil widthAnimation = new AnimationUtil();
+    private AnimationUtil heightAnimation = new AnimationUtil();
+
+    private float cachedBgWidth = 0;
+    private float cachedTotalHeight = 0;
 
     public record Staff(String name, Status status) {}
 
@@ -46,7 +51,11 @@ public class StaffsWidget extends Widget {
     @Override
     public String getName() { return "Staffs"; }
 
-    public StaffsWidget() { super(100f, 100f); }
+    public StaffsWidget() {
+        super(100f, 100f);
+        widthAnimation.setValue(0);
+        heightAnimation.setValue(0);
+    }
 
     @Override
     public void render(MatrixStack matrixStack) {
@@ -56,10 +65,19 @@ public class StaffsWidget extends Widget {
 
         boolean shouldShow = !staffList.isEmpty() || mc.currentScreen instanceof ChatScreen;
         animation.update();
-        float animValue = (float) animation.getValue();
+        widthAnimation.update();
+        heightAnimation.update();
 
-        if (shouldShow && !animation.isAlive()) animation.run(1f, 200L, Easing.SINE_OUT);
-        else if (!shouldShow && animation.isAlive() && animation.getToValue() != 0) animation.run(0f, 200L, Easing.SINE_OUT);
+        float animValue = (float) animation.getValue();
+        float widthAnimValue = (float) widthAnimation.getValue();
+        float heightAnimValue = (float) heightAnimation.getValue();
+
+        if (shouldShow && !animation.isAlive()) {
+            animation.run(1f, 200L, Easing.SINE_OUT);
+        } else if (!shouldShow && animation.isAlive() && animation.getToValue() != 0) {
+            animation.run(0f, 200L, Easing.SINE_OUT);
+        }
+
         if (animValue <= 0.01f) return;
 
         float x = getDraggable().getX();
@@ -89,8 +107,23 @@ public class StaffsWidget extends Widget {
 
         float totalLineWidth = maxNameWidth + maxStatusWidth + scaled(10f);
         float maxWidth = Math.max(iconTitleWidth, totalLineWidth);
-        float bgWidth = maxWidth + padding * 2f;
-        float totalHeight = bgHeight * (staffList.size() + 1) + lineSpacing * staffList.size();
+        float targetBgWidth = maxWidth + padding * 2f;
+        float targetTotalHeight = bgHeight * (staffList.size() + 1) + lineSpacing * staffList.size();
+
+        if (targetBgWidth != cachedBgWidth || targetTotalHeight != cachedTotalHeight) {
+            cachedBgWidth = targetBgWidth;
+            cachedTotalHeight = targetTotalHeight;
+
+            if (!widthAnimation.isAlive()) {
+                widthAnimation.run(targetBgWidth, 150L, Easing.SINE_OUT);
+            }
+            if (!heightAnimation.isAlive()) {
+                heightAnimation.run(targetTotalHeight, 150L, Easing.SINE_OUT);
+            }
+        }
+
+        float bgWidth = (float) widthAnimation.getValue();
+        float totalHeight = (float) heightAnimation.getValue();
 
         float currentY = y;
 
@@ -108,19 +141,32 @@ public class StaffsWidget extends Widget {
                 iconWidth / 4f);
         currentX += iconWidth + textIconSpacing;
         font.drawText(matrixStack, title, currentX, textY1, fontSize, new Color(185, 185, 185, (int)(255 * animValue)));
-        currentY += bgHeight + lineSpacing;
+        currentY += bgHeight + lineSpacing * 1.1f;
 
-        for (Staff staff : staffList) {
+        for (int i = 0; i < staffList.size(); i++) {
+            Staff staff = staffList.get(i);
             if (animValue <= 0.01f) continue;
+
+            float lineAnim = Math.min(1.0f, animValue + (i * 0.05f));
+
             float bgX = x;
             float bgY = currentY;
-            RenderUtil.BLUR_RECT.draw(matrixStack, bgX, bgY, bgWidth, bgHeight, round - 1, new Color(18, 18, 18, (int)(240 * animValue)));
+
+            float bgAlpha = animValue * lineAnim;
+            RenderUtil.BLUR_RECT.draw(matrixStack, bgX, bgY, bgWidth, bgHeight, round - 1, new Color(18, 18, 18, (int)(240 * bgAlpha)));
 
             float textY = bgY + (bgHeight - fontSize) / 2f + 0.5f;
             currentX = bgX + padding;
-            font.drawText(matrixStack, staff.name(), currentX, textY, fontSize, new Color(185, 185, 185, (int)(255 * animValue)));
+
+            font.drawText(matrixStack, staff.name(), currentX, textY, fontSize,
+                    new Color(185, 185, 185, (int)(255 * bgAlpha)));
+
             Color statusColor = staff.status().getColor();
-            font.drawText(matrixStack, staff.status().getLabel(), bgX + bgWidth - padding - font.getWidth(staff.status().getLabel(), fontSize), textY, fontSize, new Color(statusColor.getRed(), statusColor.getGreen(), statusColor.getBlue(), (int)(statusColor.getAlpha() * animValue)));
+            float statusX = bgX + bgWidth - padding - font.getWidth(staff.status().getLabel(), fontSize);
+            font.drawText(matrixStack, staff.status().getLabel(), statusX, textY, fontSize,
+                    new Color(statusColor.getRed(), statusColor.getGreen(), statusColor.getBlue(),
+                            (int)(statusColor.getAlpha() * bgAlpha)));
+
             currentY += bgHeight + lineSpacing;
         }
 

@@ -31,6 +31,7 @@ public class Draggable implements QuickImports {
     @SerializedName("name")
     private final String name;
     private final Module module;
+    private boolean horizontalDragEnabled;
 
     public Draggable(Module module, String name, float initialXVal, float initialYVal) {
         this.module = module;
@@ -94,5 +95,9 @@ public class Draggable implements QuickImports {
         if (y < margin) y = margin;
         if (x + width > screenWidth - margin) x = screenWidth - width - margin;
         if (y + height > screenHeight - margin) y = screenHeight - height - margin;
+    }
+
+    public void setHorizontalDragEnabled(boolean enabled) {
+        this.horizontalDragEnabled = enabled;
     }
 }

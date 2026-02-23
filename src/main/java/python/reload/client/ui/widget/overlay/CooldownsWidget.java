@@ -22,11 +22,21 @@ import java.util.List;
 
 public class CooldownsWidget extends Widget {
     private AnimationUtil animation = new AnimationUtil();
+    private AnimationUtil widthAnimation = new AnimationUtil();
+    private AnimationUtil heightAnimation = new AnimationUtil();
+
+    private float cachedBgWidth = 0;
+    private float cachedTotalHeight = 0;
+    private boolean sizeChanged = false;
 
     @Override
     public String getName() { return "Cooldowns"; }
 
-    public CooldownsWidget() { super(120f, 100f); }
+    public CooldownsWidget() {
+        super(120f, 100f);
+        widthAnimation.setValue(0);
+        heightAnimation.setValue(0);
+    }
 
     @Override
     public void render(MatrixStack matrixStack) {
@@ -37,10 +47,19 @@ public class CooldownsWidget extends Widget {
 
         boolean shouldShow = !cooldownItems.isEmpty() || mc.currentScreen instanceof ChatScreen;
         animation.update();
-        float animValue = (float) animation.getValue();
+        widthAnimation.update();
+        heightAnimation.update();
 
-        if (shouldShow && !animation.isAlive()) animation.run(1f, 200L, Easing.SINE_OUT);
-        else if (!shouldShow && animation.isAlive() && animation.getToValue() != 0) animation.run(0f, 200L, Easing.SINE_OUT);
+        float animValue = (float) animation.getValue();
+        float widthAnimValue = (float) widthAnimation.getValue();
+        float heightAnimValue = (float) heightAnimation.getValue();
+
+        if (shouldShow && !animation.isAlive()) {
+            animation.run(1f, 200L, Easing.SINE_OUT);
+        } else if (!shouldShow && animation.isAlive() && animation.getToValue() != 0) {
+            animation.run(0f, 200L, Easing.SINE_OUT);
+        }
+
         if (animValue <= 0.01f) return;
 
         float x = getDraggable().getX();
@@ -70,8 +89,24 @@ public class CooldownsWidget extends Widget {
 
         float totalLineWidth = maxItemWidth + maxTimeWidth + scaled(10f);
         float maxWidth = Math.max(iconTitleWidth, totalLineWidth);
-        float bgWidth = maxWidth + padding * 2f;
-        float totalHeight = bgHeight * (cooldownItems.size() + 1) + lineSpacing * cooldownItems.size();
+        float targetBgWidth = maxWidth + padding * 2f;
+        float targetTotalHeight = bgHeight * (cooldownItems.size() + 1) + lineSpacing * cooldownItems.size();
+
+        if (targetBgWidth != cachedBgWidth || targetTotalHeight != cachedTotalHeight) {
+            cachedBgWidth = targetBgWidth;
+            cachedTotalHeight = targetTotalHeight;
+            sizeChanged = true;
+
+            if (!widthAnimation.isAlive()) {
+                widthAnimation.run(targetBgWidth, 150L, Easing.SINE_OUT);
+            }
+            if (!heightAnimation.isAlive()) {
+                heightAnimation.run(targetTotalHeight, 150L, Easing.SINE_OUT);
+            }
+        }
+
+        float bgWidth = (float) widthAnimation.getValue();
+        float totalHeight = (float) heightAnimation.getValue();
 
         float currentY = y;
 
@@ -89,7 +124,7 @@ public class CooldownsWidget extends Widget {
                 iconWidth / 4f);
         currentX += iconWidth + textIconSpacing;
         font.drawText(matrixStack, title, currentX, textY1, fontSize, new Color(185, 185, 185, (int)(255 * animValue)));
-        currentY += bgHeight + lineSpacing;
+        currentY += bgHeight + lineSpacing * 1.1f;
 
         for (ItemCooldownEntry entry : cooldownItems) {
             if (animValue <= 0.01f) continue;

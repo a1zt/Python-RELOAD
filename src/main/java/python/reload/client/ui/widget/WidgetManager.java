@@ -1,10 +1,10 @@
 package python.reload.client.ui.widget;
 
 import lombok.Getter;
+import python.reload.client.ui.widget.overlay.MusicBarWidget;
 import python.reload.api.event.Listener;
 import python.reload.api.event.events.render.Render2DEvent;
 import python.reload.client.features.modules.render.InterfaceModule;
-import python.reload.client.ui.widget.overlay.*;
 import python.reload.client.ui.widget.overlay.*;
 
 import java.util.ArrayList;
@@ -18,17 +18,16 @@ public class WidgetManager {
 
     public void load() {
         register(
+                new NotificationWidget(),
+                new TargetInfoWidget(),
                 new WatermarkWidget(),
+                new CooldownsWidget(),
                 new KeybindsWidget(),
                 new PotionsWidget(),
                 new StaffsWidget(),
-                new CooldownsWidget(),
-                new BossBarWidget(),
-                new MusicBarWidget(),
-
                 new ArmorWidget(),
-
-                new TargetInfoWidget()
+                new InventoryWidget(),
+                new MusicBarWidget()
         );
 
         InterfaceModule.getInstance().init();

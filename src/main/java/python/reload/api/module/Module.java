@@ -6,6 +6,7 @@ import python.reload.api.system.backend.Configurable;
 import python.reload.api.system.interfaces.QuickImports;
 import python.reload.client.features.modules.other.ToggleSoundsModule;
 import python.reload.client.features.modules.render.ClickGUIModule;
+import python.reload.client.ui.widget.overlay.NotificationWidget;
 
 @Getter
 public abstract class Module extends Configurable implements QuickImports {
@@ -53,7 +54,9 @@ public abstract class Module extends Configurable implements QuickImports {
 
         if (config || this instanceof ClickGUIModule) return;
         ToggleSoundsModule.playToggle(newState);
+        NotificationWidget.notify(name + (enabled ? " enabled" : " disabled"),enabled ? NotificationWidget.NotificationType.SUCCESS : NotificationWidget.NotificationType.ERROR);
     }
+
 
     public abstract void onEvent();
 

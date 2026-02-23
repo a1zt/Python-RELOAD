@@ -20,8 +20,16 @@ import java.util.List;
 
 public class KeybindsWidget extends Widget {
     private AnimationUtil animation = new AnimationUtil();
+    private AnimationUtil widthAnimation = new AnimationUtil();
+    private AnimationUtil heightAnimation = new AnimationUtil();
+    private float cachedBgWidth = 0;
+    private float cachedTotalHeight = 0;
 
-    public KeybindsWidget() { super(3f, 120f); }
+    public KeybindsWidget() {
+        super(3f, 120f);
+        widthAnimation.setValue(0);
+        heightAnimation.setValue(0);
+    }
 
     @Override
     public String getName() { return "Keybinds"; }
@@ -37,10 +45,19 @@ public class KeybindsWidget extends Widget {
 
         boolean shouldShow = !modules.isEmpty() || mc.currentScreen instanceof ChatScreen;
         animation.update();
-        float animValue = (float) animation.getValue();
+        widthAnimation.update();
+        heightAnimation.update();
 
-        if (shouldShow && !animation.isAlive()) animation.run(1f, 200L, Easing.SINE_OUT);
-        else if (!shouldShow && animation.isAlive() && animation.getToValue() != 0) animation.run(0f, 200L, Easing.SINE_OUT);
+        float animValue = (float) animation.getValue();
+        float widthAnimValue = (float) widthAnimation.getValue();
+        float heightAnimValue = (float) heightAnimation.getValue();
+
+        if (shouldShow && !animation.isAlive()) {
+            animation.run(1f, 200L, Easing.SINE_OUT);
+        } else if (!shouldShow && animation.isAlive() && animation.getToValue() != 0) {
+            animation.run(0f, 200L, Easing.SINE_OUT);
+        }
+
         if (animValue <= 0.01f) return;
 
         float x = getDraggable().getX();
@@ -71,8 +88,23 @@ public class KeybindsWidget extends Widget {
 
         float totalLineWidth = maxModuleWidth + maxKeyWidth + scaled(10f);
         float maxWidth = Math.max(iconTitleWidth, totalLineWidth);
-        float bgWidth = maxWidth + padding * 2f;
-        float totalHeight = bgHeight * (modules.size() + 1) + lineSpacing * modules.size();
+        float targetBgWidth = maxWidth + padding * 2f;
+        float targetTotalHeight = bgHeight * (modules.size() + 1) + lineSpacing * modules.size();
+
+        if (targetBgWidth != cachedBgWidth || targetTotalHeight != cachedTotalHeight) {
+            cachedBgWidth = targetBgWidth;
+            cachedTotalHeight = targetTotalHeight;
+
+            if (!widthAnimation.isAlive()) {
+                widthAnimation.run(targetBgWidth, 150L, Easing.SINE_OUT);
+            }
+            if (!heightAnimation.isAlive()) {
+                heightAnimation.run(targetTotalHeight, 150L, Easing.SINE_OUT);
+            }
+        }
+
+        float bgWidth = (float) widthAnimation.getValue();
+        float totalHeight = (float) heightAnimation.getValue();
 
         float currentY = y;
 
@@ -90,7 +122,7 @@ public class KeybindsWidget extends Widget {
                 iconWidth / 4f);
         currentX += iconWidth + textIconSpacing + 1;
         font.drawText(matrixStack, title, currentX, textY1, fontSize, new Color(185, 185, 185, (int)(255 * animValue)));
-        currentY += bgHeight + lineSpacing;
+        currentY += bgHeight + lineSpacing * 1.1f;
 
         for (Module module : modules) {
             if (animValue <= 0.01f) continue;

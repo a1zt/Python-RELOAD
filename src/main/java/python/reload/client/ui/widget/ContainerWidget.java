@@ -5,6 +5,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.minecraft.client.gui.screen.ChatScreen;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.text.Text;
 import python.reload.api.utils.animation.AnimationUtil;
 import python.reload.api.utils.animation.Easing;
 import python.reload.api.utils.color.ColorUtil;

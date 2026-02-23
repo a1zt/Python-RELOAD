@@ -1,7 +1,6 @@
 package python.reload.client.ui.widget.overlay;
 
 import net.minecraft.client.util.math.MatrixStack;
-import python.reload.EvaWare;
 import python.reload.api.utils.math.MathUtil;
 import python.reload.api.utils.color.UIColors;
 import python.reload.api.utils.render.RenderUtil;
@@ -33,7 +32,7 @@ public class WatermarkWidget extends Widget {
         updateAnimatedValues();
 
         String clientName = "Python";
-        String version = EvaWare.getVersion();
+        String version = " v11";
         String fpsText = (int) animFps + " fps";
         String pingText = (int) animPing + " ms";
         String tpsText = String.format("%.1f", animTps) + " tps";
@@ -47,7 +46,7 @@ public class WatermarkWidget extends Widget {
         float backgroundHeight = fontSize + scaled(3f);
         float padding = scaled(4f);
         float round = backgroundHeight * 0.3f;
-        float lineSpacing = scaled(1f);
+        float lineSpacing = scaled(1.1f);
 
         float clientWidth = font.getWidth(clientName, fontSize);
         float versionWidth = font.getWidth(version, fontSize);
