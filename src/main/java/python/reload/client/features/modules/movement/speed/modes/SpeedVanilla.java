@@ -12,7 +12,7 @@ public class SpeedVanilla extends SpeedMode {
         return "Vanilla";
     }
 
-    private final SliderSetting speed = new SliderSetting("Speed").value(1f).range(0.1f, 5f).step(0.1f);
+    private final SliderSetting speed = new SliderSetting("Speed").value(0.1f).range(0.1f, 10f).step(0.1f);
 
     public SpeedVanilla(Supplier<Boolean> condition) {
         speed.setVisible(condition);

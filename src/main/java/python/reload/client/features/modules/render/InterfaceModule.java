@@ -26,6 +26,7 @@ public class InterfaceModule extends Module {
     public final SliderSetting passes = new SliderSetting("Passes").value(3f).range(1f, 5f).step(1f).onAction(KawaseBlurProgram::recreate);
     public final SliderSetting offset = new SliderSetting("Offset").value(12f).range(5f, 25f).step(1f);
 
+
     public static float getScale() { return getInstance().scale.getValue(); }
     public static float getGlassy() { return 1f - getInstance().glassy.getValue(); }
     public static int getPasses() { return getInstance().passes.getValue().intValue(); }

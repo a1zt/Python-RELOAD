@@ -20,6 +20,7 @@ repositories {
         name = "FirstDark"
         url 'https://maven.firstdark.dev/releases'
     }
+    archivesBaseName = 'mediatransport4j-1.0.3'
     maven {
         name = "Jitpack"
         url = uri("https://jitpack.io")
@@ -45,11 +46,14 @@ dependencies {
 	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-
+    modImplementation "com.github.bonenaut7:mediatransport4j:1.0.3"
     // lombok
     compileOnly "org.projectlombok:lombok:${project.lombok_version}"
     annotationProcessor "org.projectlombok:lombok:${project.lombok_version}"
 
+    implementation 'net.java.dev.jna:jna:5.13.0'
+    implementation 'net.java.dev.jna:jna-platform:5.13.0'
+    implementation 'com.github.hypfvieh:dbus-java:3.3.0'
     // ai
     libImplementation "ai.catboost:catboost-common:${project.ai_version}"
     libImplementation "ai.catboost:catboost-prediction:${project.ai_version}"

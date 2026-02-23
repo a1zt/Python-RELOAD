@@ -24,7 +24,7 @@ public class WidgetManager {
                 new StaffsWidget(),
                 new CooldownsWidget(),
                 new BossBarWidget(),
-
+                new MusicBarWidget(),
 
                 new ArmorWidget(),
 
