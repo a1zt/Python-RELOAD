@@ -26,7 +26,7 @@ public class TargetEspModule extends Module {
     private final TargetEspTexture espTexture = new TargetEspTexture();
     private final TargetEspCrystal espCrystal = new TargetEspCrystal();
 
-    private TargetEspMode currentMode = espTexture;
+    private TargetEspMode currentMode = espTexture; // порно
 
     @Getter public final ModeSetting mode = new ModeSetting("Mode").value("Marker").values("Marker", "Comets", "Ghost", "Circle", "Chain", "Crystal").onAction(() -> {
         currentMode = switch (getMode().getValue()) {

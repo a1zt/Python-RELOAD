@@ -6,7 +6,6 @@ import python.reload.api.module.Category;
 import python.reload.api.module.Module;
 import python.reload.api.module.ModuleRegister;
 import python.reload.api.module.setting.*;
-import python.reload.api.module.setting.*;
 import python.reload.api.system.backend.Configurable;
 
 @ModuleRegister(name = "Particles", category = Category.RENDER)
