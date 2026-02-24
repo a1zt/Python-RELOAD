@@ -13,10 +13,8 @@ import python.reload.api.module.setting.ModeSetting;
 import python.reload.api.module.setting.SliderSetting;
 
 
-import python.reload.client.features.modules.render.targetesp.modes.TargetEspComets;
-import python.reload.client.features.modules.render.targetesp.modes.TargetEspCrystal;
-import python.reload.client.features.modules.render.targetesp.modes.TargetEspCircle;
-import python.reload.client.features.modules.render.targetesp.modes.TargetEspTexture;
+import python.reload.client.features.modules.render.targetesp.modes.*;
+
 
 @ModuleRegister(name = "Target Esp", category = Category.RENDER)
 public class TargetEspModule extends Module {
@@ -25,14 +23,27 @@ public class TargetEspModule extends Module {
     private final TargetEspComets espComets = new TargetEspComets();
     private final TargetEspTexture espTexture = new TargetEspTexture();
     private final TargetEspCrystal espCrystal = new TargetEspCrystal();
-
+    private final TargetEspSuper espSuper = new TargetEspSuper();
+    private final TargetEspPlasma espPlasma = new TargetEspPlasma();
+    private final TargetEspBlackHole espBlackHole = new TargetEspBlackHole();
+    private final TargetEspGalaxy espGalaxy = new TargetEspGalaxy();
+    private final TargetEspChain espChain = new TargetEspChain();
+    private final TargetEspMatrix espMatrix = new TargetEspMatrix();
+    private final TargetEspPhoenix espPhoenix = new TargetEspPhoenix();
     private TargetEspMode currentMode = espTexture; // порно
 
-    @Getter public final ModeSetting mode = new ModeSetting("Mode").value("Marker").values("Marker", "Comets", "Ghost", "Circle", "Chain", "Crystal").onAction(() -> {
+    @Getter public final ModeSetting mode = new ModeSetting("Mode").value("Marker").values("Marker", "Comets", "Ghost", "Circle", "Chain", "Super", "BlackHole", "Phoenix", "Matrix", "Plasma", "Galaxy", "Crystal").onAction(() -> {
         currentMode = switch (getMode().getValue()) {
             case "Comets" -> espComets;
             case "Crystal" -> espCrystal;
+            case "Chain" -> espChain;
+            case "Matrix" -> espMatrix;
+            case "Phoenix" -> espPhoenix;
+            case "BlackHole" -> espBlackHole;
+            case "Galaxy" -> espGalaxy;
+            case "Plasma" -> espPlasma;
             case "Circle" -> espCircle;
+            case "Super" -> espSuper;
             default -> espTexture;
         };
     });
