@@ -28,15 +28,38 @@ public class TargetEspModule extends Module {
     private final TargetEspBlackHole espBlackHole = new TargetEspBlackHole();
     private final TargetEspGalaxy espGalaxy = new TargetEspGalaxy();
     private final TargetEspChain espChain = new TargetEspChain();
+    private final TargetEspAtom espAtom = new TargetEspAtom();
+    private final TargetEspTornado espTornado = new TargetEspTornado();
+    private final TargetEspCrystalsss espCrystalsss = new TargetEspCrystalsss();
+    private final TargetEspNebula espNebula= new TargetEspNebula();
+    private final TargetEspVortex espVortex = new TargetEspVortex();
+    private final TargetEspHeart espHeart = new TargetEspHeart();
+    private final TargetEspFireworks espFireworks = new TargetEspFireworks();
+    private final TargetEspSakura espSakura = new TargetEspSakura();
+    private final TargetEspButterfly espButterfly = new TargetEspButterfly();
+    private final TargetEspDragon espDragon = new TargetEspDragon();
+    private final TargetEspQuantum espQuantum = new TargetEspQuantum();
+
     private final TargetEspMatrix espMatrix = new TargetEspMatrix();
     private final TargetEspPhoenix espPhoenix = new TargetEspPhoenix();
     private TargetEspMode currentMode = espTexture; // порно
 
-    @Getter public final ModeSetting mode = new ModeSetting("Mode").value("Marker").values("Marker", "Comets", "Ghost", "Circle", "Chain", "Super", "BlackHole", "Phoenix", "Matrix", "Plasma", "Galaxy", "Crystal").onAction(() -> {
+    @Getter public final ModeSetting mode = new ModeSetting("Mode").value("Marker").values("Marker", "Comets", "Heart", "Ghost", "Quantum", "Circle", "Chain", "Super", "BlackHole", "Phoenix", "Crystalsss", "Firewaorks", "Nebula", "Sakura", "Vortex", "Matrix", "Tornado", "Atom" ,"ButterFly", "Plasma", "Galaxy", "Crystal").onAction(() -> {
         currentMode = switch (getMode().getValue()) {
             case "Comets" -> espComets;
             case "Crystal" -> espCrystal;
+            case "Crystalsss" -> espCrystalsss;
+            case "Atom" -> espAtom;
+            case "Tornado" -> espTornado;
             case "Chain" -> espChain;
+            case "Nebula" -> espNebula;
+            case "Firewaorks" -> espFireworks;
+            case "Vortex" -> espVortex;
+            case "Dragon" -> espDragon;
+            case "Quantum" -> espQuantum;
+            case "Sakura" -> espSakura;
+            case "Heart" -> espHeart;
+            case "ButterFly" -> espButterfly;
             case "Matrix" -> espMatrix;
             case "Phoenix" -> espPhoenix;
             case "BlackHole" -> espBlackHole;
