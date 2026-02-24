@@ -95,7 +95,8 @@ public class ModuleManager {
                 SpiderModule.getInstance(),
                 CrystalAuraModule.getInstance(),
                 InvokerModule.getInstance(),
-                FlightModule.getInstance()
+                FlightModule.getInstance(),
+                AspectRatioModule.getInstance()
         );
 
         modules.sort((a, b) -> a.getName().compareToIgnoreCase(b.getName()));
