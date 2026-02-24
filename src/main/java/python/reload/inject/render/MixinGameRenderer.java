@@ -27,9 +27,17 @@ import python.reload.api.utils.rotation.manager.Rotation;
 import python.reload.api.utils.rotation.manager.RotationManager;
 import python.reload.client.features.modules.combat.NoEntityTraceModule;
 import python.reload.client.features.modules.render.RemovalsModule;
+import org.joml.Matrix4f;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import python.reload.client.features.modules.render.AspectRatioModule;
+import org.spongepowered.asm.mixin.Shadow;
+
 
 @Mixin(GameRenderer.class)
-public class MixinGameRenderer {
+public abstract class MixinGameRenderer {
+
+    @Shadow
+    public abstract float getViewDistance();
     /**
      * raycast
      **/
@@ -107,4 +115,13 @@ public class MixinGameRenderer {
         }
         return MathHelper.lerp(delta, first, second);
     }
+    @Inject(method = "getBasicProjectionMatrix", at = @At("HEAD"), cancellable = true)
+    public void onGetBasicProjectionMatrix(float fov, CallbackInfoReturnable<Matrix4f> cir) {
+        if (AspectRatioModule.getInstance().isEnabled()) {
+            Matrix4f matrix4f = new Matrix4f();
+        float aspectRatio = AspectRatioModule.getInstance().ratio.getValue();
+            matrix4f.perspective((float) Math.toRadians(fov), aspectRatio, 0.05F, this.getViewDistance() * 4.0F);
+        cir.setReturnValue(matrix4f);
+        }
+}
 }
