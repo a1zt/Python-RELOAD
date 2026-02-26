@@ -1,3 +1,4 @@
+/* 
 package python.reload.client.ui.widget.overlay;
 
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -179,3 +180,4 @@ public class MusicBarWidget extends Widget {
         return iconFont;
     }
 }
+    */

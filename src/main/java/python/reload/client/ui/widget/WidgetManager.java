@@ -1,7 +1,6 @@
 package python.reload.client.ui.widget;
 
 import lombok.Getter;
-import python.reload.client.ui.widget.overlay.MusicBarWidget;
 import python.reload.api.event.Listener;
 import python.reload.api.event.events.render.Render2DEvent;
 import python.reload.client.features.modules.render.InterfaceModule;
@@ -26,8 +25,7 @@ public class WidgetManager {
                 new PotionsWidget(),
                 new StaffsWidget(),
                 new ArmorWidget(),
-                new InventoryWidget(),
-                new MusicBarWidget()
+                new InventoryWidget()
         );
 
         InterfaceModule.getInstance().init();
