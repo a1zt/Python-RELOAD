@@ -19,6 +19,7 @@
 
 - Версия: ```Fabric``` 1.21.4
 - Бинд меню - **```~```**
+- Префикс - **```$```**
 - на python reload были сделаны: Nursultan, Celestial, Expensive, Windows, Logitech, Delta, WexSide, Monoton, Vape v4, ChatGPT, LiqudBounce, Helsing client, Catlean, ThunderHack, Vscode, Spotify, Python, GNU/Linux, MSDOS, Ardor Gaming, The Sims 4, Cloudflare, Claude popusk 4.6, Telegram, Nvidia, Github, Линус Торвальдц, MCHOSE hub, Java, Wifi, Apple, Микрофон, AI, Grok, Стол, Пицца, Дом, ShareX, RX580, Intel Core i7-7500
 Lipton, Магазин"Ярче" и т.д
 
