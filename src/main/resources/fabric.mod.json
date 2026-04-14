@@ -2,11 +2,11 @@
     "accessWidener": "evaware.accesswidener",
 	"schemaVersion": 1,
 	"id": "evaware",
-	"version": "${version}",
-	"name": "EvaWare",
+	"version": "1.51",
+	"name": "FreeLook",
 	"description": "So Sweetie (Fox)",
 	"authors": [
-		"Remila"
+		"Aizetsu"
 	],
 	"contact": {
 		"homepage": "https://fabricmc.net/",
